@@ -92,12 +92,20 @@ header > h1 {
     border-color: chartreuse;
     cursor: pointer;
 }
+.choice:hover#rock-comp, .choice:hover#paper-comp, .choice:hover#scissors-comp {
+    border-color: tomato;
+    cursor: pointer;
+}
 
 .choice:hover img{
     width: 60%;
 }
 .choice:active {
     background-color: chartreuse;
+}
+
+.choice:active#rock-comp, .choice:active#paper-comp, .choice:active#scissors-comp {
+    background-color: tomato;
 }
 
 .action-message {
