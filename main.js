@@ -1,9 +1,10 @@
-const userScore = 0;
-const computerScore = 0;
+let userScore = 0;
+let computerScore = 0;
 const userScore_span = document.querySelector("#user-score");
 const compScore_span = document.querySelector("#comp-score");
 const scoredBoard_div = document.querySelector(".score-board");
-const result_div = document.querySelector(".result");
+const resultText = document.querySelector("#result-text");
+
 // PLAYER
 const rock_button = document.querySelector("#rock");
 const paper_button = document.querySelector("#paper");
@@ -18,13 +19,6 @@ const scissors_comp_button = document.querySelector("#scissors-comp");
 const rock_comp_image = document.querySelector("#rock-comp-image")
 const paper_comp_image = document.querySelector("#paper-comp-image")
 const scissors_comp_image = document.querySelector("#scissors-comp-image")
-
-// scissors_comp_button.style.backgroundColor = 'tomato';
-// scissors_comp_button.style.borderColor = 'tomato';
-// scissors_comp_button.style.borderColor = 'tomato';
-// scissors_comp_image.style.width = "60%";
-
-console.log(userScore_span)
 
 main();
 
@@ -42,16 +36,21 @@ function main() {
 }
 
 function game(userChoice) {
+    resetStyleComputer();
+    const getComputerChoice = computerChoice();
     if(userChoice === "rock") {
-        compareChoices("rock", computerChoice());
+        changeStyleComputer(getComputerChoice);
+        compareChoices("rock", getComputerChoice);
     };
 
     if(userChoice === "paper") {
-        compareChoices("paper", computerChoice());
+        changeStyleComputer(getComputerChoice);
+        compareChoices("paper", getComputerChoice);
     };
 
     if(userChoice === "scissors") {
-        compareChoices("scissors", computerChoice());
+        changeStyleComputer(getComputerChoice);
+        compareChoices("scissors", getComputerChoice);
     };
 }
 
@@ -70,17 +69,60 @@ function computerChoice() {
 function compareChoices(userChoise, computerChoise) {
 
     if (userChoise === computerChoise) {
-      alert("It's a tie!");
+        resultText.textContent = "It's a tie!";
       return;
     };
 
     if ((userChoise === "rock" && computerChoise === "scissors") || 
     (userChoise === "paper" && computerChoise === "rock") || 
     (userChoise === "scissors" && computerChoise === "paper")){
-        alert(`Player Wins! ${userChoise.toUpperCase()} > ${computerChoise.toUpperCase()}`)
+        resultText.textContent = `Player Wins! ${userChoise.toUpperCase()} > ${computerChoise.toUpperCase()}`;
+        userScore++;
+        userScore_span.textContent  = userScore;
         return;
     } else {
-        alert(`Computer Wins! ${userChoise.toUpperCase()} > ${computerChoise.toUpperCase()}`)
+        resultText.textContent = `Computer Wins! ${userChoise.toUpperCase()} < ${computerChoise.toUpperCase()}`;
+        computerScore++;
+        compScore_span.textContent  = computerScore;
         return;
     };
+};
+
+function changeStyleComputer(computerChoice) {
+    const buttons = {
+        "rock": rock_comp_button,
+        "paper": paper_comp_button,
+        "scissors": scissors_comp_button
+    };
+
+    const images = {
+        "rock": rock_comp_image,
+        "paper": paper_comp_image,
+        "scissors": scissors_comp_image
+    };
+
+    resetStyleComputer();
+
+    if (buttons[computerChoice]) {
+        const button = buttons[computerChoice];
+        const image = images[computerChoice];
+
+        button.style.backgroundColor = 'tomato';
+        button.style.borderColor = 'tomato';
+        image.style.width = "60%";
+    }
+}
+
+function resetStyleComputer() {
+    const buttons = [rock_comp_button, paper_comp_button, scissors_comp_button];
+    const images = [rock_comp_image, paper_comp_image, scissors_comp_image];
+
+    buttons.forEach(button => {
+        button.style.backgroundColor = 'white';
+        button.style.borderColor = 'white';
+    });
+
+    images.forEach(image => {
+        image.style.width = "36%";
+    });
 };

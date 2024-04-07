@@ -61,12 +61,12 @@ header > h1 {
 }
 
 .result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     font-size: 40px;
     color: white;
-}
-
-.result > h3 {
-    text-align: center;
     font-family: monospace;
 }
 
@@ -94,7 +94,7 @@ header > h1 {
 }
 .choice:hover#rock-comp, .choice:hover#paper-comp, .choice:hover#scissors-comp {
     border-color: tomato;
-    cursor: pointer;
+    cursor: not-allowed;
 }
 
 .choice:hover img{
